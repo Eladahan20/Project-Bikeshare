@@ -99,6 +99,25 @@ def load_data(city, month, day):
 
     return df
 
+def data_chunks(df):
+    i = 0
+    while True:
+        try:
+            user_chunks_agreed = input('Would you like to see 5 rows of the raw data?').lower()
+            if user_chunks_agreed == 'no':
+                print('OK, moving forward')
+                break
+            elif user_chunks_agreed == 'yes':
+                while user_chunks_agreed == 'yes':
+                    print(df.iloc[i:i+5])
+                    user_chunks_agreed = input('Care to see 5 more rows?')
+                    i +=5
+            else:
+                print('Wrong Input, try again please')
+        except:
+            print('Wrong Input')
+
+
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
@@ -190,7 +209,7 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-
+        data_chunks(df)
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
